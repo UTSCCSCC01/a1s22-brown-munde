@@ -12,7 +12,7 @@ public class ReqHandler implements HttpHandler {
     // TODO Complete This Class
 
     @Override
-    public void handle(HttpExchange exchange) {
+    public void handle(HttpExchange exchange) throws IOException {
         try {
             if (exchange.getRequestMethod().equals("POST")) {
                 this.handlePost(exchange);
