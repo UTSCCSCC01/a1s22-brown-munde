@@ -1,5 +1,6 @@
 package ca.utoronto.utm.mcs;
 
+import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsServer;
 import dagger.Module;
 import dagger.Provides;
@@ -11,9 +12,9 @@ public class ServerModule {
     // TODO Complete This Module
 
   @Provides
-  HttpsServer provideHttpsServer() {
+  HttpServer provideHttpServer() {
     try {
-      return HttpsServer.create();
+      return HttpServer.create();
     }
     catch (IOException err){
       System.out.println(err);

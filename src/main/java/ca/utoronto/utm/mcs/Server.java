@@ -1,33 +1,31 @@
 package ca.utoronto.utm.mcs;
 
 import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsConfigurator;
 import com.sun.net.httpserver.HttpsServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.net.ssl.SSLContext;
-
 public class Server {
     // TODO Complete This Class
-  HttpsServer httpsServer;
+  HttpServer httpServer;
 
   @Inject
-  public Server(HttpsServer httpsServer){
-    this.httpsServer = httpsServer;
-  }
-
-  public void createContext(HttpHandler handler){
-    httpsServer.createContext("/", handler);
-    System.out.println("created handler for /" + handler.toString());
+  public Server(HttpServer httpServer){
+    this.httpServer = httpServer;
   }
 
 
-  public void run(int port) throws IOException {
-    System.out.println("server running on " + port);
-    httpsServer.bind(new InetSocketAddress("localhost", port), 0);
-//    httpsServer.setHttpsConfigurator(config);
-    httpsServer.setExecutor(null);
-    httpsServer.start();
+  public void run(int port, HttpHandler handler) throws IOException {
+    InetSocketAddress socketAddress = new InetSocketAddress("localhost", port);
+    httpServer.bind(socketAddress, 0);
+    httpServer.createContext("/", handler);
+    System.out.println(handler);
+    System.out.println("Starting server at address " + httpServer.getAddress());
+    httpServer.setExecutor(null);
+    httpServer.start();
   }
 }
