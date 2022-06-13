@@ -3,6 +3,7 @@ package ca.utoronto.utm.mcs;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsServer;
 import io.github.cdimascio.dotenv.Dotenv;
+import jdk.jfr.DataAmount;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.*;
 import org.neo4j.driver.GraphDatabase;
@@ -35,5 +36,7 @@ public class App
         String password = dotenv.get("PASSWORD");
         System.out.println(password);
 
+        ReqHandlerComponent reqComponent = DaggerReqHandlerComponent.create();
+        reqHandler = reqComponent.buildHandler();
     }
 }

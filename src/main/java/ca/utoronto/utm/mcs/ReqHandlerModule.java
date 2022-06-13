@@ -11,12 +11,13 @@ public class ReqHandlerModule {
     // TODO Complete This Module
 
     @Provides
-    Driver provideDriver(String addr, String username, String password){
-        return GraphDatabase.driver(addr, AuthTokens.basic(username, password));
+    GraphDatabase provideDriver(){
+        return new GraphDatabase();
     }
+
     @Provides
-    Neo4jDAO provideNeo4jDAO(Driver driver){
-        return new Neo4jDAO(driver);
+    Neo4jDAO provideNeo4jDAO(GraphDatabase driver){
+        return new Neo4jDAO((Driver) driver);
     }
 
 }
