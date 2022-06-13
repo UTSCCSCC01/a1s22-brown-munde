@@ -5,12 +5,16 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.OutputStream;
 import org.json.*;
-import org.json.JSONObject;
+import javax.inject.Inject;
 
 public class ReqHandler implements HttpHandler {
-
     // TODO Complete This Class
+    Neo4jDAO njDb;
 
+    @Inject
+    public ReqHandler(Neo4jDAO njDb){
+        this.njDb = njDb;
+    }
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         try {

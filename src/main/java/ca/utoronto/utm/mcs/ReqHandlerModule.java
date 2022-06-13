@@ -1,21 +1,22 @@
 package ca.utoronto.utm.mcs;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import dagger.Module;
 import dagger.Provides;
-import java.io.IOException;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
 
 @Module
 public class ReqHandlerModule {
     // TODO Complete This Module
-  @Provides
-  HttpHandler provideHttpHandler() {
-    return new HttpHandler() {
-      @Override
-      public void handle(HttpExchange exchange) throws IOException {
 
-      }
-    };
-  }
+    @Provides
+    Driver provideDriver(String addr, String username, String password){
+        return GraphDatabase.driver(addr, AuthTokens.basic(username, password));
+    }
+    @Provides
+    Neo4jDAO provideNeo4jDAO(Driver driver){
+        return new Neo4jDAO(driver);
+    }
+
 }
