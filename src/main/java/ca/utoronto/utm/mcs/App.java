@@ -10,10 +10,10 @@ public class App
 {
     static int port = 8080;
 
-    private static Server server;
     public static void main(String[] args) throws IOException
     {
         // TODO Create Your Server Context Here, There Should Only Be One Context
+        Server server;
         ServerComponent component = DaggerServerComponent.create();
         server = component.buildServer();
         server.run(port);
