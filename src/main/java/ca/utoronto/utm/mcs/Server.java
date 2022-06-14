@@ -18,14 +18,18 @@ public class Server {
     this.httpServer = httpServer;
   }
 
-  private void setRoutes(){
+  /*private void setRoutes(){
     httpServer.createContext("/", new TestHandler());
-  }
+  }*/
 
   public void run(int port) throws IOException {
     InetSocketAddress socketAddress = new InetSocketAddress("localhost", port);
     httpServer.bind(socketAddress, 0);
-    setRoutes();
+    //setRoutes();
+    ReqHandler requestHandler;
+    ReqHandlerComponent reqComponent = DaggerReqHandlerComponent.create();
+    requestHandler = reqComponent.buildHandler();
+    requestHandler.njDb.insertPokemon("Char","2","red","a","b");
     System.out.println("Starting server at address " + httpServer.getAddress());
     httpServer.setExecutor(null);
     httpServer.start();
