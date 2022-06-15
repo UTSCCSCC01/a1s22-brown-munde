@@ -47,7 +47,7 @@ public class GetActor implements HttpHandler {
                 String query = "MATCH (a: Actor {actorId: \"%s\"}) RETURN a.name,a.actorId";
                 query = String.format(query, actorId);
                 temp = njDB.getActor(query);
-                if (temp.get(0) == "" && temp.get(0) == ""){
+                if (temp.isEmpty()){
                     res = "No such actor";
                     exchange.sendResponseHeaders(404, res.length());
                 }

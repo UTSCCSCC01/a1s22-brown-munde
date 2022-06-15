@@ -45,7 +45,6 @@ public class ReqHandler implements HttpHandler {
     }
 
     public void invalidRoute(HttpExchange exchange) throws IOException, JSONException {
-        System.out.println("HII\n\n");
         String response = "Not Found";
         exchange.sendResponseHeaders(404, response.length());
         OutputStream os = exchange.getResponseBody();
