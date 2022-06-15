@@ -43,6 +43,7 @@ public class Neo4jDAO implements AutoCloseable{
             res.add(actorId);
             res.add(movieId);
         }
+        return res;
     }
 
     public ArrayList<String> getActor(String query) throws Neo4jException {
