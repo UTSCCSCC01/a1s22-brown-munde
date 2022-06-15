@@ -41,27 +41,31 @@ public class HasRelationship implements HttpHandler {
         String response = "";
         ArrayList<String> temp = new ArrayList<String>();
         if (deserialized.has("actorId") && deserialized.has("movieId")) {
-            actorId = deserialized.getString("actorId");
-            movieId = deserialized.getString("movieId");
+            try {
+                actorId = deserialized.getString("actorId");
+                movieId = deserialized.getString("movieId");
 
-            String query = "MATCH (a:Actor {actorId: \"%s\"}), (b:Movie {movieId:\"%s\"}) RETURN a.actorId,b.movieId";
-            query = String.format(query, actorId, movieId);
-            temp = njDB.getRelation(query);
-            if (temp.isEmpty()) {
-                response = "actor or movie does not exist";
-                exchange.sendResponseHeaders(404, response.length());
-            } else {
-                query = "MATCH (a:Actor {actorId: \"%s\"}), (b:Movie {movieId:\"%s\"}) WHERE (a)-[:ACTED_IN]->(b) RETURN a.actorId, b.movieId";
+                String query = "MATCH (a:Actor {actorId: \"%s\"}), (b:Movie {movieId:\"%s\"}) RETURN a.actorId,b.movieId";
                 query = String.format(query, actorId, movieId);
                 temp = njDB.getRelation(query);
-                if(temp.isEmpty()){
-                    response = String.format("{\"actorId\": \"%s\" ,\n\"movieId\": \"%s\",\n\"hasRelationship\": \"False\"}",actorId,movieId);
-                    exchange.sendResponseHeaders(200, response.length());
+                if (temp.isEmpty()) {
+                    response = "actor or movie does not exist";
+                    exchange.sendResponseHeaders(404, response.length());
+                } else {
+                    query = "MATCH (a:Actor {actorId: \"%s\"}), (b:Movie {movieId:\"%s\"}) WHERE (a)-[:ACTED_IN]->(b) RETURN a.actorId, b.movieId";
+                    query = String.format(query, actorId, movieId);
+                    temp = njDB.getRelation(query);
+                    if (temp.isEmpty()) {
+                        response = String.format("{\"actorId\": \"%s\" ,\n\"movieId\": \"%s\",\n\"hasRelationship\": \"False\"}", actorId, movieId);
+                        exchange.sendResponseHeaders(200, response.length());
+                    } else {
+                        response = "{\"actorId\":" + temp.get(0) + ",\n\"movieId\":" + temp.get(1) + ",\n\"hasRelationship\": \"True\"}";
+                        exchange.sendResponseHeaders(200, response.length());
+                    }
                 }
-                else {
-                    response = "{\"actorId\":" + temp.get(0) + ",\n\"movieId\":" + temp.get(1) + ",\n\"hasRelationship\": \"True\"}";
-                    exchange.sendResponseHeaders(200, response.length());
-                }
+            }catch (Neo4jException e) {
+                response = "save or add was unsuccessful";
+                exchange.sendResponseHeaders(500, response.length());
             }
         }
         else {
