@@ -24,7 +24,8 @@ public class Neo4jDAO implements AutoCloseable{
     }
 
     public void makeQuery(String query) throws Neo4jException {
-        this.session.run(query);
+        Result result = this.session.run(query);
+        System.out.println(result.consume());
     }
 
     public void initialSetup(){
