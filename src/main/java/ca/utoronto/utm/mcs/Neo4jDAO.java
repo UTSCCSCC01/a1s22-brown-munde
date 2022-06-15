@@ -31,26 +31,27 @@ public class Neo4jDAO implements AutoCloseable{
         System.out.println(result.consume());
     }
 
-    public String getActor(String query) throws Neo4jException {
+    public ArrayList<String> getActor(String query) throws Neo4jException {
         Result result = this.session.run(query);
-        String res = "";
-        String name ="";
+        ArrayList<String> res = new ArrayList<String>();
+        String name = "";
         String id = "";
         for(Record rec: result.list()){
             name = rec.get("a.name").toString();
             id = rec.get("a.actorId").toString();
-            res = name + " " + id;
+            res.add(name);
+            res.add(id);
         }
         return res;
     }
 
-    public String getMovies(String query) throws Neo4jException {
+    public ArrayList<String> getMovies(String query) throws Neo4jException {
         Result result = this.session.run(query);
-        String res = "";
+        ArrayList<String> res = new ArrayList<String>();
         String movie = "";
         for(Record rec: result.list()){
             movie = rec.get("b.movieId").toString();
-            res = res + movie + " ";
+            res.add(movie);
         }
         return res;
     }
