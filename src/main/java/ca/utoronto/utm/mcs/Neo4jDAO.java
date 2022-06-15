@@ -8,7 +8,7 @@ import org.neo4j.driver.Record;
 import org.neo4j.driver.exceptions.Neo4jException;
 
 import java.util.ArrayList;
-
+import java.util.List;
 public class Neo4jDAO implements AutoCloseable{
     // TODO Complete This Class
     private final Session session;
@@ -30,6 +30,7 @@ public class Neo4jDAO implements AutoCloseable{
         System.out.println(result.consume());
     }
 
+
     public ArrayList<String> getRelation(String query) throws Neo4jException {
         Result result = this.session.run(query);
         ArrayList<String> res = new ArrayList<String>();
@@ -41,8 +42,33 @@ public class Neo4jDAO implements AutoCloseable{
             res.add(actorId);
             res.add(movieId);
         }
+    }
+
+    public ArrayList<String> getActor(String query) throws Neo4jException {
+        Result result = this.session.run(query);
+        ArrayList<String> res = new ArrayList<String>();
+        String name = "";
+        String id = "";
+        for(Record rec: result.list()){
+            name = rec.get("a.name").toString();
+            id = rec.get("a.actorId").toString();
+            res.add(name);
+            res.add(id);
+        }
         return res;
     }
+
+    public ArrayList<String> getMovies(String query) throws Neo4jException {
+        Result result = this.session.run(query);
+        ArrayList<String> res = new ArrayList<String>();
+        String movie = "";
+        for(Record rec: result.list()){
+            movie = rec.get("b.movieId").toString();
+            res.add(movie);
+        }
+        return res;
+    }
+    
     public void initialSetup(){
         String query1 =
             "CREATE CONSTRAINT unique_actorId FOR (actor: Actor) REQUIRE actor.actorId IS UNIQUE";
@@ -61,6 +87,7 @@ public class Neo4jDAO implements AutoCloseable{
         catch (Neo4jException e){
             System.out.println(e.getMessage());;
         }
+
     }
 
 }

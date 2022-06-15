@@ -5,11 +5,13 @@ import ca.utoronto.utm.mcs.Utils;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.neo4j.driver.exceptions.Neo4jException;
 
-public class AddMovie {
+public class AddMovie implements HttpHandler {
 
   Neo4jDAO njDB;
 
