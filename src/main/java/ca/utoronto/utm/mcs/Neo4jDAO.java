@@ -4,8 +4,6 @@ package ca.utoronto.utm.mcs;
 // go in this class
 import javax.inject.Inject;
 import org.neo4j.driver.*;
-import org.neo4j.driver.Record;
-import org.neo4j.driver.exceptions.Neo4jException;
 
 public class Neo4jDAO implements AutoCloseable{
     // TODO Complete This Class
@@ -23,19 +21,12 @@ public class Neo4jDAO implements AutoCloseable{
         driver.close();
     }
 
-    public void makeQuery(String query) throws Neo4jException {
+    public void insertPokemon(String name, String pid, String description, String type1, String type2) {
+        String query;
+        query = "CREATE (n:pokemon {name: \"%s\", pid: \"%s\", description: \"%s\", type1: \"%s\", type2: \"%s\"})";
+        query = String.format(query, name, pid, description, type1, type2);
         this.session.run(query);
-    }
-
-    public void initialSetup(){
-        String query =
-            "CREATE CONSTRAINT unique_actorId FOR (actor: Actor) REQUIRE actor.actorId IS UNIQUE";
-        try {
-            this.session.run(query);
-        }
-        catch (Neo4jException e){
-            System.out.println(e.getMessage());;
-        }
+        return;
     }
 
 }

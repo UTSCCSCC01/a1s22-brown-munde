@@ -1,6 +1,5 @@
 package ca.utoronto.utm.mcs;
 
-import ca.utoronto.utm.mcs.handlers.AddActor;
 import dagger.Component;
 import javax.inject.Singleton;
 

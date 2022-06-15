@@ -1,11 +1,11 @@
 package ca.utoronto.utm.mcs;
 
-import ca.utoronto.utm.mcs.handlers.AddActor;
 import java.io.IOException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.OutputStream;
 import org.json.*;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -17,31 +17,34 @@ public class ReqHandler implements HttpHandler {
     @Inject
     public ReqHandler(Neo4jDAO njDb){
         this.njDb = njDb;
-        njDb.initialSetup();
     }
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         try {
-            System.out.println(exchange.getRequestURI());
-            switch (exchange.getRequestURI().toString()){
-                case "/api/v1/addActor":
-                    new AddActor(njDb).handle(exchange);
-                    break;
-                default:
-                    invalidRoute(exchange);
+            if (exchange.getRequestMethod().equals("POST")) {
+                this.handlePost(exchange);
+            }
+            else if (exchange.getRequestMethod().equals("GET")) {
+                this.handleGet(exchange);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void invalidRoute(HttpExchange exchange) throws IOException, JSONException {
-        String response = "Not Found";
-        exchange.sendResponseHeaders(404, response.length());
+    public void handleGet(HttpExchange exchange) throws IOException, JSONException {
+        String response = "This route is not implemented yet";
+        exchange.sendResponseHeaders(200, response.length());
         OutputStream os = exchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
     }
-
+    public void handlePost(HttpExchange exchange) throws IOException, JSONException {
+        String response = "This route is not implemented yet";
+        exchange.sendResponseHeaders(200, response.length());
+        OutputStream os = exchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
+    }
 }
