@@ -1,21 +1,19 @@
 package ca.utoronto.utm.mcs.handlers;
 
 import ca.utoronto.utm.mcs.Neo4jDAO;
-import ca.utoronto.utm.mcs.ReqHandler;
 import ca.utoronto.utm.mcs.Utils;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
-import javax.inject.Inject;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.neo4j.driver.exceptions.Neo4jException;
 
-public class AddActor implements HttpHandler {
+public class AddMovie {
 
   Neo4jDAO njDB;
-  public AddActor(Neo4jDAO njDb) {
+
+  public AddMovie(Neo4jDAO njDb) {
     this.njDB = njDb;
   }
 
@@ -35,27 +33,27 @@ public class AddActor implements HttpHandler {
   public void handlePut(HttpExchange exchange) throws IOException, JSONException {
     String body = Utils.convert(exchange.getRequestBody());
     JSONObject deserialized = new JSONObject(body);
-    String name = "", actorId = "";
+    String name = "", movieId = "";
 
     String response = "";
 
-    if (deserialized.has("name") && deserialized.has("actorId")) {
+    if (deserialized.has("name") && deserialized.has("movieId")) {
       try {
         name = deserialized.getString("name");
-        actorId = deserialized.getString("actorId");
+        movieId = deserialized.getString("movieId");
 
-        String query = "CREATE (actor: Actor {name: \"%s\", actorId: \"%s\"}) RETURN actor";
-        query = String.format(query, name, actorId);
+        String query = "CREATE (movie: Movie {name: \"%s\", movieId: \"%s\"}) RETURN movie";
+        query = String.format(query, name, movieId);
         njDB.makeQuery(query);
-        response = "Actor was successfully added!";
+        response = "Movie was successfully added!";
         exchange.sendResponseHeaders(200, response.length());
       } catch (Neo4jException e) {
         if (e.getMessage().indexOf("already exists") != -1){
-          response = "The actorId is already in use";
+          response = "The movieId is already in use";
           exchange.sendResponseHeaders(400, response.length());
         }
         else {
-          response = "Failed to add actors\n" + e.getMessage();
+          response = "Failed to add movie\n" + e.getMessage();
           exchange.sendResponseHeaders(500, response.length());
         }
       }
