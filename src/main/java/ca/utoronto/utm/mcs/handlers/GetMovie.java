@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.json.JSONException;
@@ -38,38 +39,46 @@ public class GetMovie implements HttpHandler {
         JSONObject deserialized = new JSONObject(body);
         String movieId = "";
         exchange.getResponseHeaders().set("Content-Type", "application/json");
-        JSONObject response = new JSONObject();
         String res="";
+        ArrayList<String> temp = new ArrayList<String>();
         if (deserialized.has("movieId")) {
             try {
                 movieId = deserialized.getString("movieId");
                 String query = "MATCH (a: Movie {movieId: \"%s\"}) RETURN a.name,a.movieId";
                 query = String.format(query, movieId);
-                res = njDB.getMovie(query);
-                //String[] res = actor.split("\\s+");
-                //response.append("name", res[0]);
-                //response.append("actorId", actor);
-                //res = response.JSONString();
-                if (res == ""){
+                temp = njDB.getMovie(query);
+                System.out.println(temp);
+                if (temp.isEmpty()){
                     res = "No such movie";
                     exchange.sendResponseHeaders(404, res.length());
                 }
                 else {
+                    ArrayList<String> res1 = temp;
+                    res = "{\"name\":" + res1.get(0) + ",\n\"movieId\":" + res1.get(1) + ",\n";
                     String res2 = "";
+                    String temp2 = "";
                     query = "MATCH (a: Movie {movieId: \"%s\"}) <- [:ACTED_IN]-(b) RETURN b.actorId";
                     query = String.format(query, movieId);
-                    res2 = njDB.getActors(query);
-                    res = res + "\n" + res2;
+                    temp = njDB.getActors(query);
+                    res1 = temp;
+                    for(int i = 0;i<res1.size();i++){
+                        if(i == res1.size()-1){
+                            temp2 = temp2 + res1.get(i) + "\n";
+                        }
+                        else {
+                            temp2 = temp2 + res1.get(i) + ",\n";
+                        }
+                    }
+                    res2 = res2 + "\"actors\":[" + temp2 + "] \n}";
+                    res = res + res2;
                     exchange.sendResponseHeaders(200, res.length());
                 }
             } catch (Neo4jException e) {
-                //response.append("error message","No such actor");
                 res = "save or add was unsuccessful";
                 exchange.sendResponseHeaders(500, res.length());
             }
         }
         else {
-            //response.append("error message", "required field is missing in the body");
             res = "required field is missing in the body";
             exchange.sendResponseHeaders(400, res.length());
         }

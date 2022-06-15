@@ -36,6 +36,7 @@ public class ReqHandler implements HttpHandler {
                     break;
                 case "/api/v1/getMovie":
                     new GetMovie(njDb).handle(exchange);
+                    break;
                 default:
                     invalidRoute(exchange);
             }
