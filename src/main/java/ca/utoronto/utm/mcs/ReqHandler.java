@@ -3,6 +3,7 @@ package ca.utoronto.utm.mcs;
 import ca.utoronto.utm.mcs.handlers.AddActor;
 import ca.utoronto.utm.mcs.handlers.AddMovie;
 import java.io.IOException;
+import ca.utoronto.utm.mcs.handlers.GetActor;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.OutputStream;
@@ -32,6 +33,8 @@ public class ReqHandler implements HttpHandler {
                 case "/api/v1/addMovie":
                     new AddMovie(njDb).handle(exchange);
                     break;
+                case "/api/v1/getActor":
+                    new GetActor(njDb).handle(exchange);
                 default:
                     invalidRoute(exchange);
             }

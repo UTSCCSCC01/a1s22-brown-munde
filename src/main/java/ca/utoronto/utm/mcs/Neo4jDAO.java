@@ -7,6 +7,9 @@ import org.neo4j.driver.*;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.exceptions.Neo4jException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Neo4jDAO implements AutoCloseable{
     // TODO Complete This Class
     private final Session session;
@@ -28,6 +31,29 @@ public class Neo4jDAO implements AutoCloseable{
         System.out.println(result.consume());
     }
 
+    public String getActor(String query) throws Neo4jException {
+        Result result = this.session.run(query);
+        String res = "";
+        String name ="";
+        String id = "";
+        for(Record rec: result.list()){
+            name = rec.get("a.name").toString();
+            id = rec.get("a.actorId").toString();
+            res = name + " " + id;
+        }
+        return res;
+    }
+
+    public String getMovies(String query) throws Neo4jException {
+        Result result = this.session.run(query);
+        String res = "";
+        String movie = "";
+        for(Record rec: result.list()){
+            movie = rec.get("b.movieId").toString();
+            res = res + movie + " ";
+        }
+        return res;
+    }
     public void initialSetup(){
         String query1 =
             "CREATE CONSTRAINT unique_actorId FOR (actor: Actor) REQUIRE actor.actorId IS UNIQUE";
@@ -46,6 +72,7 @@ public class Neo4jDAO implements AutoCloseable{
         catch (Neo4jException e){
             System.out.println(e.getMessage());;
         }
+
     }
 
 }
