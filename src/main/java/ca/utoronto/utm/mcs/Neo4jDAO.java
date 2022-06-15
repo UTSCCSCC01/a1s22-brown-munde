@@ -28,6 +28,16 @@ public class Neo4jDAO implements AutoCloseable{
         System.out.println(result.consume());
     }
 
+    public String retmakeQuery(String query) throws Neo4jException {
+        Result result = this.session.run(query);
+        String res = "";
+        String name ="";
+        for(Record rec: result.list()){
+            name = rec.get("a.name").toString();
+            res = name;
+        }
+        return res;
+    }
     public void initialSetup(){
         String query1 =
             "CREATE CONSTRAINT unique_actorId FOR (actor: Actor) REQUIRE actor.actorId IS UNIQUE";
@@ -46,6 +56,7 @@ public class Neo4jDAO implements AutoCloseable{
         catch (Neo4jException e){
             System.out.println(e.getMessage());;
         }
+
     }
 
 }
