@@ -29,4 +29,8 @@ public class Neo4jDAO implements AutoCloseable{
         return;
     }
 
+    public void makeQuery(String query){
+        this.session.run(query);
+    }
+
 }

@@ -1,14 +1,10 @@
 package ca.utoronto.utm.mcs;
 
-import ca.utoronto.utm.mcs.handlers.TestHandler;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpsConfigurator;
-import com.sun.net.httpserver.HttpsServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import javax.inject.Inject;
-import javax.inject.Singleton;
+
 public class Server {
     // TODO Complete This Class
   HttpServer httpServer;
@@ -18,18 +14,16 @@ public class Server {
     this.httpServer = httpServer;
   }
 
-  /*private void setRoutes(){
-    httpServer.createContext("/", new TestHandler());
-  }*/
+  private void setRoutes(){
+    ReqHandlerComponent reqComponent = DaggerReqHandlerComponent.create();
+    ReqHandler reqHandler = reqComponent.buildHandler();
+    httpServer.createContext("/api/v1/", reqHandler);
+  }
 
   public void run(int port) throws IOException {
     InetSocketAddress socketAddress = new InetSocketAddress("localhost", port);
     httpServer.bind(socketAddress, 0);
-    //setRoutes();
-    ReqHandler requestHandler;
-    ReqHandlerComponent reqComponent = DaggerReqHandlerComponent.create();
-    requestHandler = reqComponent.buildHandler();
-    requestHandler.njDb.insertPokemon("Char","2","red","a","b");
+    setRoutes();
     System.out.println("Starting server at address " + httpServer.getAddress());
     httpServer.setExecutor(null);
     httpServer.start();
