@@ -28,14 +28,24 @@ public class Neo4jDAO implements AutoCloseable{
     }
 
     public void initialSetup(){
-        String query =
+        String query1 =
             "CREATE CONSTRAINT unique_actorId FOR (actor: Actor) REQUIRE actor.actorId IS UNIQUE";
         try {
-            this.session.run(query);
+            this.session.run(query1);
         }
         catch (Neo4jException e){
             System.out.println(e.getMessage());;
         }
+
+        String query2 =
+            "CREATE CONSTRAINT unique_movieId FOR (movie: Movie) REQUIRE movie.movieId IS UNIQUE";
+        try {
+            this.session.run(query2);
+        }
+        catch (Neo4jException e){
+            System.out.println(e.getMessage());;
+        }
+
     }
 
 }
