@@ -17,6 +17,7 @@ public class ReqHandler implements HttpHandler {
     @Inject
     public ReqHandler(Neo4jDAO njDb){
         this.njDb = njDb;
+        njDb.initialSetup();
     }
 
     @Override
@@ -26,6 +27,7 @@ public class ReqHandler implements HttpHandler {
             switch (exchange.getRequestURI().toString()){
                 case "/api/v1/addActor":
                     new AddActor(njDb).handle(exchange);
+                    break;
                 default:
                     invalidRoute(exchange);
             }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import javax.inject.Inject;
 import org.json.JSONException;
+import org.neo4j.driver.exceptions.Neo4jException;
 
 public class AddActor implements HttpHandler {
 
@@ -21,34 +22,41 @@ public class AddActor implements HttpHandler {
       if (exchange.getRequestMethod().equals("PUT")) {
         this.handlePut(exchange);
       }
-      else if (exchange.getRequestMethod().equals("GET")) {
-        this.handleGet(exchange);
+      else {
+        this.invalidRoute(exchange);
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  public void handleGet(HttpExchange exchange) throws IOException, JSONException {
-    String query = "CREATE (actor: Actor {name: \"Johnson\", actorId: \"123456\"})";
-    njDB.makeQuery(query);
+  public void handlePut(HttpExchange exchange) throws IOException {
+    String response = "";
+    try {
+      String query = "CREATE (actor: Actor {name: \"Johnson\", actorId: \"123456\"}) RETURN actor";
+      njDB.makeQuery(query);
 
-    String response = "This route get for /addActor";
-    exchange.sendResponseHeaders(200, response.length());
+      response = "This route put for /addActor";
+      exchange.sendResponseHeaders(200, response.length());
+    } catch (Neo4jException e){
+      if (e.getMessage().indexOf("already exists") != -1){
+        response = "The actorId is already in use";
+      }
+      else {
+        response = e.getMessage();
+      }
+      exchange.sendResponseHeaders(400, response.length());
+    }
     OutputStream os = exchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
   }
 
-  public void handlePut(HttpExchange exchange) throws IOException, JSONException {
-    String query = "CREATE (actor: Actor: {name: \"Johnson\", actorId: \"123456\"})";
-    njDB.makeQuery(query);
-
-    String response = "This route put for /addActor";
-    exchange.sendResponseHeaders(200, response.length());
+  public void invalidRoute(HttpExchange exchange) throws IOException, JSONException {
+    String response = "Not Found";
+    exchange.sendResponseHeaders(404, response.length());
     OutputStream os = exchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
   }
-
 }
