@@ -5,6 +5,7 @@ import ca.utoronto.utm.mcs.Utils;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONException;
@@ -35,10 +36,11 @@ public class AddRelationship implements HttpHandler {
     public void handlePut(HttpExchange exchange) throws IOException, JSONException {
         String body = Utils.convert(exchange.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
-        String actorId = "", movieId = "";
+        String actorId = "";
+        String movieId = "";
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
         String response = "";
-        String res = "";
-        String res1 = "";
+        ArrayList<String> temp = new ArrayList<String>();
         if (deserialized.has("actorId") && deserialized.has("movieId")) {
             try {
                 actorId = deserialized.getString("actorId");
@@ -46,17 +48,15 @@ public class AddRelationship implements HttpHandler {
 
                 String query = "MATCH (a:Actor {actorId: \"%s\"}), (b:Movie {movieId:\"%s\"}) RETURN a.actorId,b.movieId";
                 query = String.format(query, actorId, movieId);
-                res1 = njDB.retmakeQuery(query);
-                if(res1 == ""){
+                temp = njDB.getRelation(query);
+                if (temp.isEmpty()) {
                     response = "actor or movie does not exist";
                     exchange.sendResponseHeaders(404, response.length());
-                }
-                else {
+                } else {
                     query = "MATCH (a:Actor {actorId: \"%s\"}), (b:Movie {movieId:\"%s\"}) WHERE NOT (a)-[:ACTED_IN]->(b) CREATE (a)-[r:ACTED_IN]->(b) RETURN a.actorId";
                     query = String.format(query, actorId, movieId);
-                    res = njDB.retmakeQuery(query);
-
-                    if (res == "") {
+                    temp = njDB.getRelation(query);
+                    if (temp.isEmpty()) {
                         response = "The relationship already exists";
                         exchange.sendResponseHeaders(400, response.length());
                     } else {
@@ -65,7 +65,7 @@ public class AddRelationship implements HttpHandler {
                     }
                 }
             } catch (Neo4jException e) {
-                response = "Failed to add relationship\n" + e.getMessage();
+                response = "Failed to add relationship";
                 exchange.sendResponseHeaders(500, response.length());
             }
         }
