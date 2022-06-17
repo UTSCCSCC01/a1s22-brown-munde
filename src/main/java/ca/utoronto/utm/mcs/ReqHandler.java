@@ -1,12 +1,9 @@
 package ca.utoronto.utm.mcs;
 
-import ca.utoronto.utm.mcs.handlers.AddActor;
-import ca.utoronto.utm.mcs.handlers.AddMovie;
+import ca.utoronto.utm.mcs.handlers.*;
+
 import java.io.IOException;
-import ca.utoronto.utm.mcs.handlers.HasRelationship;
-import ca.utoronto.utm.mcs.handlers.GetActor;
-import ca.utoronto.utm.mcs.handlers.GetMovie;
-import ca.utoronto.utm.mcs.handlers.AddRelationship;
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.OutputStream;
@@ -47,6 +44,9 @@ public class ReqHandler implements HttpHandler {
                     break;
                 case "/api/v1/addRelationship":
                     new AddRelationship(njDb).handle(exchange);
+                    break;
+                case "/api/v1/computeBaconPath":
+                    new ComputeBaconPath(njDb).handle(exchange);
                     break;
                 default:
                     invalidRoute(exchange);
