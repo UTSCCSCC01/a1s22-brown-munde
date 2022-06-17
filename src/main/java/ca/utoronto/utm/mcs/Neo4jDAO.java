@@ -114,7 +114,6 @@ public class Neo4jDAO implements AutoCloseable {
             this.session.run(query2);
         } catch (Neo4jException e) {
             System.out.println(e.getMessage());
-            ;
         }
 
         /*String query =
@@ -136,6 +135,7 @@ public class Neo4jDAO implements AutoCloseable {
             System.out.println(e.getMessage());
         }
     }
+
 
     public int computeBacon(String query) {
         Result result = this.session.run(query);

@@ -46,6 +46,7 @@ public class AddRelationship implements HttpHandler {
                 actorId = deserialized.getString("actorId");
                 movieId = deserialized.getString("movieId");
                 String query = "MATCH (a:Actor {id:\"%s\"}), (b:Movie {id:\"%s\"}) RETURN a.id, b.id";
+
                 query = String.format(query, actorId, movieId);
                 temp = njDB.getRelation(query);
                 if (temp.isEmpty()) {
