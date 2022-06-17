@@ -45,15 +45,15 @@ public class AddRelationship implements HttpHandler {
             try {
                 actorId = deserialized.getString("actorId");
                 movieId = deserialized.getString("movieId");
+                String query = "MATCH (a:Actor {id:\"%s\"}), (b:Movie {id:\"%s\"}) RETURN a.id, b.id";
 
-                String query = "MATCH (a:Actor {actorId:\"%s\"}), (b:Movie {movieId:\"%s\"}) RETURN a.actorId, b.movieId";
                 query = String.format(query, actorId, movieId);
                 temp = njDB.getRelation(query);
                 if (temp.isEmpty()) {
                     response = "actor or movie does not exist";
                     exchange.sendResponseHeaders(404, response.length());
                 } else {
-                    query = "MATCH (a:Actor {actorId: \"%s\"}), (b:Movie {movieId:\"%s\"}) WHERE NOT (a)-[:ACTED_IN]->(b) CREATE (a)-[r:ACTED_IN]->(b) RETURN a.actorId";
+                    query = "MATCH (a:Actor {id: \"%s\"}), (b:Movie {id:\"%s\"}) WHERE NOT (a)-[:ACTED_IN]->(b) CREATE (a)-[r:ACTED_IN]->(b) RETURN a.id";
                     query = String.format(query, actorId, movieId);
                     temp = njDB.getRelation(query);
                     if (temp.isEmpty()) {

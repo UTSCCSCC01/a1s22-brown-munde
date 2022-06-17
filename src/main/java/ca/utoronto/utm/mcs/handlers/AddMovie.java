@@ -44,13 +44,13 @@ public class AddMovie implements HttpHandler {
         name = deserialized.getString("name");
         movieId = deserialized.getString("movieId");
 
-        String query = "CREATE (movie: Movie {name: \"%s\", movieId: \"%s\"}) RETURN movie";
+        String query = "CREATE (movie: Movie {name: \"%s\", id: \"%s\"}) RETURN movie";
         query = String.format(query, name, movieId);
         njDB.makeQuery(query);
         response = "Movie was successfully added!";
         exchange.sendResponseHeaders(200, response.length());
       } catch (Neo4jException e) {
-        if (e.getMessage().indexOf("already exists") != -1){
+        if (e.getMessage().contains("already exists")){
           response = "The movieId is already in use";
           exchange.sendResponseHeaders(400, response.length());
         }

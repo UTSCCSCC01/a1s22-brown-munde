@@ -45,6 +45,8 @@ public class ReqHandler implements HttpHandler {
                 case "/api/v1/addRelationship":
                     new AddRelationship(njDb).handle(exchange);
                     break;
+                case "/api/v1/computeBaconPath":
+                    new ComputeBaconPath(njDb).handle(exchange);
                 case "/api/v1/computeBaconNumber":
                     new ComputeBaconNumber(njDb).handle(exchange);
                     break;

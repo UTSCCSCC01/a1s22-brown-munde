@@ -44,7 +44,7 @@ public class GetActor implements HttpHandler {
         if (deserialized.has("actorId")) {
             try {
                 actorId = deserialized.getString("actorId");
-                String query = "MATCH (a: Actor {actorId: \"%s\"}) RETURN a.name,a.actorId";
+                String query = "MATCH (a: Actor {id: \"%s\"}) RETURN a.name,a.id";
                 query = String.format(query, actorId);
                 temp = njDB.getActor(query);
                 if (temp.isEmpty()){
@@ -56,7 +56,7 @@ public class GetActor implements HttpHandler {
                     res = "{\"name\":" + res1.get(0) + ",\n\"actorId\":" + res1.get(1) + ",\n";
                     String res2 = "";
                     String temp2 = "";
-                    query = "MATCH (a: Actor {actorId: \"%s\"}) - [:ACTED_IN]->(b) RETURN b.movieId";
+                    query = "MATCH (a: Actor {id: \"%s\"}) - [:ACTED_IN]->(b) RETURN b.id";
                     query = String.format(query, actorId);
                     temp = njDB.getMovies(query);
                     res1 = temp;

@@ -44,10 +44,9 @@ public class GetMovie implements HttpHandler {
         if (deserialized.has("movieId")) {
             try {
                 movieId = deserialized.getString("movieId");
-                String query = "MATCH (a: Movie {movieId: \"%s\"}) RETURN a.name,a.movieId";
+                String query = "MATCH (a: Movie {id: \"%s\"}) RETURN a.name,a.id";
                 query = String.format(query, movieId);
                 temp = njDB.getMovie(query);
-                System.out.println(temp);
                 if (temp.isEmpty()){
                     res = "No such movie";
                     exchange.sendResponseHeaders(404, res.length());
@@ -57,7 +56,7 @@ public class GetMovie implements HttpHandler {
                     res = "{\"name\":" + res1.get(0) + ",\n\"movieId\":" + res1.get(1) + ",\n";
                     String res2 = "";
                     String temp2 = "";
-                    query = "MATCH (a: Movie {movieId: \"%s\"}) <- [:ACTED_IN]-(b) RETURN b.actorId";
+                    query = "MATCH (a: Movie {id: \"%s\"}) <- [:ACTED_IN]-(b) RETURN b.id";
                     query = String.format(query, movieId);
                     temp = njDB.getActors(query);
                     res1 = temp;

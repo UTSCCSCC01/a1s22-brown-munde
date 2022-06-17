@@ -44,13 +44,13 @@ public class AddActor implements HttpHandler {
         name = deserialized.getString("name");
         actorId = deserialized.getString("actorId");
 
-        String query = "CREATE (actor: Actor {name: \"%s\", actorId: \"%s\"}) RETURN actor";
+        String query = "CREATE (actor: Actor {name: \"%s\", id: \"%s\"}) RETURN actor";
         query = String.format(query, name, actorId);
         njDB.makeQuery(query);
         response = "Actor was successfully added!";
         exchange.sendResponseHeaders(200, response.length());
       } catch (Neo4jException e) {
-        if (e.getMessage().indexOf("already exists") != -1){
+        if (e.getMessage().contains("already exists")){
           response = "The actorId is already in use";
           exchange.sendResponseHeaders(400, response.length());
         }
