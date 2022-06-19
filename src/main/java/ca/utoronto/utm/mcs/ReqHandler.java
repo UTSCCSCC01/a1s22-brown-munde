@@ -27,6 +27,10 @@ public class ReqHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        if (!njDb.setupDone){
+            njDb.initialSetup();
+        }
+
         try {
             System.out.println(exchange.getRequestURI());
             switch (exchange.getRequestURI().toString()){
