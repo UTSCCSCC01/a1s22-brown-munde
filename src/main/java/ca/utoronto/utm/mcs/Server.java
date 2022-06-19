@@ -21,7 +21,7 @@ public class Server {
   }
 
   public void run(int port) throws IOException {
-    InetSocketAddress socketAddress = new InetSocketAddress("localhost", port);
+    InetSocketAddress socketAddress = new InetSocketAddress("0.0.0.0", port);
     httpServer.bind(socketAddress, 0);
     setRoutes();
     System.out.println("Starting server at address " + httpServer.getAddress());

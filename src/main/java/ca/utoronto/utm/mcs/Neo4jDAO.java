@@ -17,7 +17,7 @@ public class Neo4jDAO implements AutoCloseable {
     // TODO Complete This Class
     private final Session session;
     private final Driver driver;
-
+    boolean setupDone = false;
     @Inject
     public Neo4jDAO(Driver driver) {
         this.driver = driver;
@@ -103,9 +103,12 @@ public class Neo4jDAO implements AutoCloseable {
             "CREATE CONSTRAINT unique_actorId FOR (actor: Actor) REQUIRE actor.id IS UNIQUE";
         try {
             this.session.run(query1);
+            setupDone = true;
         } catch (Neo4jException e) {
             System.out.println(e.getMessage());
-            ;
+            if (e.getMessage().indexOf("already exists") != -1){
+                setupDone = true;
+            }
         }
 
         String query2 =

@@ -33,6 +33,7 @@ public class AppTest {
     }
     @BeforeEach
     public void setup() throws IOException {
+        System.out.println("starting test");
     }
     @AfterEach
     public void cleanup()
@@ -45,7 +46,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body = "{\"name\": \"John\", \"actorId\": \"123456\"}";
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addActor"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body))
                 .build();
@@ -64,7 +65,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body = "{\"name\": \"John\"}";
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addActor"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body))
                 .build();
@@ -83,7 +84,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body = "{\"name\": \"The Power\", \"movieId\": \"123456\"}";
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addMovie"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body))
                 .build();
@@ -102,7 +103,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body = "{\"name\": \"The Power\"}";
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addMovie"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body))
                 .build();
@@ -121,7 +122,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"name\": \"John\", \"actorId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addActor"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body1))
                 .build();
@@ -129,7 +130,7 @@ public class AppTest {
 
             String body2 = "{\"name\": \"The Power\", \"movieId\": \"123456\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addMovie"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body2))
                 .build();
@@ -137,7 +138,7 @@ public class AppTest {
 
             String body3 = "{\"actorId\": \"123456\", \"movieId\": \"123456\"}";
             HttpRequest request3 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addRelationship"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addRelationship"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body3))
                 .build();
@@ -156,7 +157,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"actorId\": \"123456\", \"movieId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addRelationship"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addRelationship"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body1))
                 .build();
@@ -164,7 +165,7 @@ public class AppTest {
 
             String body2 = "{\"actorId\": \"123456\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addRelationship"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addRelationship"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body2))
                 .build();
@@ -183,7 +184,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"name\": \"John\", \"actorId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addActor"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body1))
                 .build();
@@ -191,7 +192,7 @@ public class AppTest {
 
             String body2 = "{\"actorId\": \"123456\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/getActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/getActor"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body2))
                 .build();
@@ -210,7 +211,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"name\": \"John\", \"actorId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addActor"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body1))
                 .build();
@@ -218,7 +219,7 @@ public class AppTest {
 
             String body2 = "{\"actorId\": \"123456789\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/getActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/getActor"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body2))
                 .build();
@@ -226,7 +227,7 @@ public class AppTest {
 
             String body3 = "{\"name\": \"John\"}";
             HttpRequest request3 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/getActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/getActor"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body3))
                 .build();
@@ -245,7 +246,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"name\": \"The Power\", \"movieId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addMovie"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body1))
                 .build();
@@ -253,7 +254,7 @@ public class AppTest {
 
             String body2 = "{\"movieId\": \"123456\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/getMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/getMovie"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body2))
                 .build();
@@ -272,7 +273,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"name\": \"The Power\", \"movieId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addMovie"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body1))
                 .build();
@@ -280,7 +281,7 @@ public class AppTest {
 
             String body2 = "{\"movieId\": \"123456789\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/getMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/getMovie"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body2))
                 .build();
@@ -288,7 +289,7 @@ public class AppTest {
 
             String body3 = "{\"name\": \"The Power\"}";
             HttpRequest request3 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/getMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/getMovie"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body3))
                 .build();
@@ -308,7 +309,7 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"name\": \"John\", \"actorId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addActor"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addActor"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body1))
                 .build();
@@ -316,7 +317,7 @@ public class AppTest {
 
             String body2 = "{\"name\": \"The Power\", \"movieId\": \"123456\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addMovie"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addMovie"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body2))
                 .build();
@@ -324,7 +325,7 @@ public class AppTest {
 
             String body3 = "{\"actorId\": \"123456\", \"movieId\": \"123456\"}";
             HttpRequest request3 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/addRelationship"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/addRelationship"))
                 .header("Content-Type", "application/json")
                 .PUT(BodyPublishers.ofString(body3))
                 .build();
@@ -332,7 +333,7 @@ public class AppTest {
 
             String body4 = "{\"actorId\": \"123456\", \"movieId\": \"123456\"}";
             HttpRequest request4 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/hasRelationship"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/hasRelationship"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body4))
                 .build();
@@ -351,15 +352,15 @@ public class AppTest {
             HttpClient client = HttpClient.newHttpClient();
             String body1 = "{\"actorId\": \"123456\", \"movieId\": \"123456\"}";
             HttpRequest request1 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/hasRelationship"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/hasRelationship"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body1))
                 .build();
             HttpResponse<String> response1 = client.send(request1, BodyHandlers.ofString());
 
-            String body2 = "{\"actorId\": \"123456\"git}";
+            String body2 = "{\"actorId\": \"123456\"}";
             HttpRequest request2 = HttpRequest.newBuilder()
-                .uri(URI.create("http://127.0.0.1:8080/api/v1/hasRelationship"))
+                .uri(URI.create("http://0.0.0.0:8080/api/v1/hasRelationship"))
                 .header("Content-Type", "application/json")
                 .method("GET", BodyPublishers.ofString(body2))
                 .build();
