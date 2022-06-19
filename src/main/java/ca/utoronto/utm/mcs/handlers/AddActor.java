@@ -69,7 +69,6 @@ public class AddActor implements HttpHandler {
       exchange.sendResponseHeaders(400, response.length());
     }
 
-    System.out.println(response);
     OutputStream os = exchange.getResponseBody();
     os.write(response.getBytes());
     os.close();
