@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ca.utoronto.utm.mcs.AppTest" time="2.397" tests="12" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ca.utoronto.utm.mcs.AppTest" time="3.393" tests="16" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="16"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde/target/test-classes:/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde/target/classes:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/yutoomachi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/yutoomachi/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:/Users/yutoomachi/.m2/repository/com/google/dagger/dagger/2.35.1/dagger-2.35.1.jar:/Users/yutoomachi/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/yutoomachi/.m2/repository/org/neo4j/driver/neo4j-java-driver/4.3.4/neo4j-java-driver-4.3.4.jar:/Users/yutoomachi/.m2/repository/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar:/Users/yutoomachi/.m2/repository/org/json/json/20090211/json-20090211.jar:/Users/yutoomachi/.m2/repository/io/github/cdimascio/dotenv-java/2.2.0/dotenv-java-2.2.0.jar:/Users/yutoomachi/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/yutoomachi/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.class.path" value="/Users/aryasharma/Documents/GitHub/a1s22-brown-munde/target/test-classes:/Users/aryasharma/Documents/GitHub/a1s22-brown-munde/target/classes:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/aryasharma/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/aryasharma/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/aryasharma/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:/Users/aryasharma/.m2/repository/com/google/dagger/dagger/2.35.1/dagger-2.35.1.jar:/Users/aryasharma/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/aryasharma/.m2/repository/org/neo4j/driver/neo4j-java-driver/4.3.4/neo4j-java-driver-4.3.4.jar:/Users/aryasharma/.m2/repository/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar:/Users/aryasharma/.m2/repository/org/json/json/20090211/json-20090211.jar:/Users/aryasharma/.m2/repository/io/github/cdimascio/dotenv-java/2.2.0/dotenv-java-2.2.0.jar:/Users/aryasharma/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/aryasharma/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
@@ -12,40 +12,40 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CA"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-16.0.1.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde/target/surefire/surefirebooter660936784025894852.jar /Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde/target/surefire 2022-06-19T15-49-07_211-jvmRun1 surefire6510464412039193061tmp surefire_01681235237879686138tmp"/>
+    <property name="sun.java.command" value="/Users/aryasharma/Documents/GitHub/a1s22-brown-munde/target/surefire/surefirebooter11207890664732550453.jar /Users/aryasharma/Documents/GitHub/a1s22-brown-munde/target/surefire 2022-06-19T18-21-13_289-jvmRun1 surefire13238376006924654335tmp surefire_02549759760970114524tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde/target/test-classes:/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde/target/classes:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/yutoomachi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/yutoomachi/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/yutoomachi/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:/Users/yutoomachi/.m2/repository/com/google/dagger/dagger/2.35.1/dagger-2.35.1.jar:/Users/yutoomachi/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/yutoomachi/.m2/repository/org/neo4j/driver/neo4j-java-driver/4.3.4/neo4j-java-driver-4.3.4.jar:/Users/yutoomachi/.m2/repository/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar:/Users/yutoomachi/.m2/repository/org/json/json/20090211/json-20090211.jar:/Users/yutoomachi/.m2/repository/io/github/cdimascio/dotenv-java/2.2.0/dotenv-java-2.2.0.jar:/Users/yutoomachi/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/yutoomachi/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/aryasharma/Documents/GitHub/a1s22-brown-munde/target/test-classes:/Users/aryasharma/Documents/GitHub/a1s22-brown-munde/target/classes:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/aryasharma/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/aryasharma/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/aryasharma/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/aryasharma/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:/Users/aryasharma/.m2/repository/com/google/dagger/dagger/2.35.1/dagger-2.35.1.jar:/Users/aryasharma/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/aryasharma/.m2/repository/org/neo4j/driver/neo4j-java-driver/4.3.4/neo4j-java-driver-4.3.4.jar:/Users/aryasharma/.m2/repository/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar:/Users/aryasharma/.m2/repository/org/json/json/20090211/json-20090211.jar:/Users/aryasharma/.m2/repository/io/github/cdimascio/dotenv-java/2.2.0/dotenv-java-2.2.0.jar:/Users/aryasharma/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/aryasharma/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="/Users/yutoomachi"/>
+    <property name="user.home" value="/Users/aryasharma"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="java.version.date" value="2021-04-20"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-16.0.1.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde"/>
+    <property name="basedir" value="/Users/aryasharma/Documents/GitHub/a1s22-brown-munde"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde/target/surefire/surefirebooter660936784025894852.jar"/>
+    <property name="surefire.real.class.path" value="/Users/aryasharma/Documents/GitHub/a1s22-brown-munde/target/surefire/surefirebooter11207890664732550453.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="16.0.1+9-24"/>
-    <property name="user.name" value="yutoomachi"/>
+    <property name="user.name" value="aryasharma"/>
     <property name="path.separator" value=":"/>
     <property name="os.version" value="11.5"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="localRepository" value="/Users/yutoomachi/.m2/repository"/>
+    <property name="localRepository" value="/Users/aryasharma/.m2/repository"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="/var/folders/x4/v9sy4zfd0lv5jpzdhtt4kbcc0000gn/T/"/>
+    <property name="java.io.tmpdir" value="/var/folders/1j/zbyqgcts6lxgm1whwqkbf4rc0000gn/T/"/>
     <property name="java.version" value="16.0.1"/>
-    <property name="user.dir" value="/Users/yutoomachi/Desktop/CSCC01/A1/a1s22-brown-munde"/>
+    <property name="user.dir" value="/Users/aryasharma/Documents/GitHub/a1s22-brown-munde"/>
     <property name="os.arch" value="x86_64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="java.library.path" value="/Users/yutoomachi/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.library.path" value="/Users/aryasharma/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="java.vendor" value="Oracle Corporation"/>
     <property name="java.vm.version" value="16.0.1+9-24"/>
@@ -53,16 +53,20 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="60.0"/>
   </properties>
-  <testcase name="addRelationshipFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.5"/>
-  <testcase name="addRelationshipPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.249"/>
-  <testcase name="hasRelationshipFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.052"/>
-  <testcase name="hasRelationshipPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.23"/>
-  <testcase name="addActorFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.017"/>
-  <testcase name="addActorPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.076"/>
-  <testcase name="getActorFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.13"/>
-  <testcase name="getActorPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.114"/>
-  <testcase name="addMovieFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.024"/>
-  <testcase name="addMoviePass" classname="ca.utoronto.utm.mcs.AppTest" time="0.077"/>
-  <testcase name="getMovieFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.138"/>
-  <testcase name="getMoviePass" classname="ca.utoronto.utm.mcs.AppTest" time="0.095"/>
+  <testcase name="computeBaconPathFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.936"/>
+  <testcase name="computeBaconPathPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.247"/>
+  <testcase name="addRelationshipFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.034"/>
+  <testcase name="addRelationshipPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.18"/>
+  <testcase name="hasRelationshipFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.021"/>
+  <testcase name="hasRelationshipPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.139"/>
+  <testcase name="addActorFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.013"/>
+  <testcase name="addActorPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.067"/>
+  <testcase name="getActorFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.067"/>
+  <testcase name="getActorPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.089"/>
+  <testcase name="computeBaconNumberFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.228"/>
+  <testcase name="computeBaconNumberPass" classname="ca.utoronto.utm.mcs.AppTest" time="0.277"/>
+  <testcase name="addMovieFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.015"/>
+  <testcase name="addMoviePass" classname="ca.utoronto.utm.mcs.AppTest" time="0.06"/>
+  <testcase name="getMovieFail" classname="ca.utoronto.utm.mcs.AppTest" time="0.057"/>
+  <testcase name="getMoviePass" classname="ca.utoronto.utm.mcs.AppTest" time="0.063"/>
 </testsuite>

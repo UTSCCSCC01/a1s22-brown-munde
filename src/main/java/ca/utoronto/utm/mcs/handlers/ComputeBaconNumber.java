@@ -40,47 +40,55 @@ public class ComputeBaconNumber implements HttpHandler {
         String actorId = "";
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         String response = "";
+        JSONObject response1 = new JSONObject();
         ArrayList<String> temp = new ArrayList<String>();
+        byte [] res = new byte[0];
         int temp2 = 0;
         if (deserialized.has("actorId")) {
             try {
                 actorId = deserialized.getString("actorId");
                 if(Objects.equals(actorId, "nm0000102")){
-                    response = "{\"BaconNumber\":" + temp2 + "}";
-                    exchange.sendResponseHeaders(200, response.length());
+                    response1.put("baconNumber",temp2);
+                    res = ((String) response1.toString()).getBytes();
+                    exchange.sendResponseHeaders(200, res.length);
                 }
                 else {
-                    String query = "MATCH (a: Actor {actorId: \"%s\"}) RETURN a.name,a.actorId";
+                    String query = "MATCH (a: Actor {id: \"%s\"}) RETURN a.name,a.actorId";
                     query = String.format(query, actorId);
                     temp = njDB.getActor(query);
                     if (temp.isEmpty()) {
-                        response = "No such actor";
-                        exchange.sendResponseHeaders(404, response.length());
+                        response1.put("error","No such actor");
+                        res = ((String) response1.toString()).getBytes();
+                        exchange.sendResponseHeaders(404, res.length);
                     } else {
-                        query = "MATCH p=shortestPath((a:Actor {actorId:\"%s\"})-[*]-(b:Actor {actorId:\"nm0000102\"})) RETURN [node IN nodes(p) | node.id] as RESULT";
+                        query = "MATCH p=shortestPath((a:Actor {id:\"%s\"})-[*]-(b:Actor {id:\"nm0000102\"})) RETURN [node IN nodes(p) | node.id] as RESULT";
                         query = String.format(query, actorId);
                         temp2 = njDB.computeBacon(query);
                         if (temp2 == 0) {
-                            response = "No such path exists";
-                            exchange.sendResponseHeaders(404, response.length());
+                            response1.put("error","No such path exists");
+                            res = ((String) response1.toString()).getBytes();
+                            exchange.sendResponseHeaders(404, res.length);
                         } else {
-                            response = "{\"BaconNumber\":" + temp2 + "}";
-                            exchange.sendResponseHeaders(200, response.length());
+                            response1.put("baconNumber",temp2);
+                            res = ((String) response1.toString()).getBytes();
+                            exchange.sendResponseHeaders(200, res.length);
                         }
                     }
                 }
             }catch (Neo4jException e) {
-                response = "save or add was unsuccessful";
-                exchange.sendResponseHeaders(500, response.length());
+                response1.put("error","save or add was unsuccessful");
+                res = ((String) response1.toString()).getBytes();
+                exchange.sendResponseHeaders(500, res.length);
             }
         }else {
-            response = "required field is missing in the body";
-            exchange.sendResponseHeaders(400, response.length());
+            response1.put("error","required field is missing in the body");
+            res = ((String) response1.toString()).getBytes();
+            exchange.sendResponseHeaders(400, res.length);
         }
 
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        OutputStream respond = exchange.getResponseBody();
+        respond.write(res);
+        respond.close();
     }
 
     public void invalidRoute(HttpExchange exchange) throws IOException, JSONException {
@@ -91,3 +99,4 @@ public class ComputeBaconNumber implements HttpHandler {
         os.close();
     }
 }
+

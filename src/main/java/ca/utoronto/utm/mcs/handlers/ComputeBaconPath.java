@@ -40,57 +40,55 @@ public class ComputeBaconPath implements HttpHandler {
         String actorId = "";
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         String response = "";
-        String res1 = "";
+        JSONObject response1 = new JSONObject();
         ArrayList<String> temp = new ArrayList<String>();
+        byte [] res = new byte[0];
         List<String> temp2 = new ArrayList<String>();
         if (deserialized.has("actorId")) {
             try {
                 actorId = deserialized.getString("actorId");
                 if(Objects.equals(actorId, "nm0000102")){
-                    response = "{\"baconPath\":[\"nm0000102\" ]\n}";
-                    exchange.sendResponseHeaders(200, response.length());
+                    response1.put("baconPath","nm0000102");
+                    res = ((String) response1.toString()).getBytes();
+                    exchange.sendResponseHeaders(200, res.length);
                 }
                 else {
-                    String query = "MATCH (a: Actor {id: \"%s\"}) RETURN a.name,a.id";
+                    String query = "MATCH (a: Actor {id: \"%s\"}) RETURN a.name,a.actorId";
                     query = String.format(query, actorId);
                     temp = njDB.getActor(query);
                     if (temp.isEmpty()) {
-                        response = "No such actor";
-                        exchange.sendResponseHeaders(404, response.length());
+                        response1.put("error","No such actor");
+                        res = ((String) response1.toString()).getBytes();
+                        exchange.sendResponseHeaders(404, res.length);
                     } else {
                         query = "MATCH p=shortestPath((a:Actor {id:\"%s\"})-[*]-(b:Actor {id:\"nm0000102\"})) RETURN [node IN nodes(p) | node.id] as RESULT";
                         query = String.format(query, actorId);
                         temp2 = njDB.computeBaconPath(query);
                         if (temp2.isEmpty()) {
-                            response = "No such path exists";
-                            exchange.sendResponseHeaders(404, response.length());
+                            response1.put("error","No such path exists");
+                            res = ((String) response1.toString()).getBytes();
+                            exchange.sendResponseHeaders(404, res.length);
                         } else {
-                            for(int i = 0;i<temp2.size();i++){
-                                if(i == temp2.size()-1){
-                                    res1 = String.format("%s \"%s\" \n",res1, temp2.get(i));
-                                }
-                                else{
-                                    res1 = String.format("%s \"%s\" ,\n",res1, temp2.get(i));
-                                }
-
-                            }
-                            response = "{\"baconPath\":[" + res1 + "]\n}";
-                            exchange.sendResponseHeaders(200, response.length());
+                            response1.put("baconPath",temp2);
+                            res = ((String) response1.toString()).getBytes();
+                            exchange.sendResponseHeaders(200, res.length);
                         }
                     }
                 }
             }catch (Neo4jException e) {
-                response = "save or add was unsuccessful";
-                exchange.sendResponseHeaders(500, response.length());
+                response1.put("error","save or add was unsuccessful");
+                res = ((String) response1.toString()).getBytes();
+                exchange.sendResponseHeaders(500, res.length);
             }
         }else {
-            response = "required field is missing in the body";
-            exchange.sendResponseHeaders(400, response.length());
+            response1.put("error","required field is missing in the body");
+            res = ((String) response1.toString()).getBytes();
+            exchange.sendResponseHeaders(400, res.length);
         }
 
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        OutputStream respond = exchange.getResponseBody();
+        respond.write(res);
+        respond.close();
     }
 
     public void invalidRoute(HttpExchange exchange) throws IOException, JSONException {
@@ -101,3 +99,4 @@ public class ComputeBaconPath implements HttpHandler {
         os.close();
     }
 }
+
