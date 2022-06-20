@@ -17,10 +17,20 @@ import java.util.Objects;
 public class ComputeBaconPath implements HttpHandler {
 
     Neo4jDAO njDB;
+
+    /**
+     * This method injects the neo4j object in the class
+     * @param njDb the neo4j objected to be injected
+     */
     public ComputeBaconPath(Neo4jDAO njDb) {
         this.njDB = njDb;
     }
 
+    /**
+     * This method handles the which function to call for baconPath
+     * @param exchange the request sent to the server
+     * @throws IOException
+     */
     public void handle(HttpExchange exchange) throws IOException {
         try {
             if (exchange.getRequestMethod().equals("GET")) {
@@ -34,6 +44,12 @@ public class ComputeBaconPath implements HttpHandler {
         }
     }
 
+    /**
+     * This method handles the get request for the baconPath
+     * @param exchange
+     * @throws IOException
+     * @throws JSONException
+     */
     public void handleGet(HttpExchange exchange) throws IOException, JSONException {
         String body = Utils.convert(exchange.getRequestBody());
         JSONObject deserialized = new JSONObject(body);
@@ -91,6 +107,12 @@ public class ComputeBaconPath implements HttpHandler {
         respond.close();
     }
 
+    /**
+     * This method handles any invalid request
+     * @param exchange the request sent to server
+     * @throws IOException
+     * @throws JSONException
+     */
     public void invalidRoute(HttpExchange exchange) throws IOException, JSONException {
         String response = "Not Found";
         exchange.sendResponseHeaders(404, response.length());

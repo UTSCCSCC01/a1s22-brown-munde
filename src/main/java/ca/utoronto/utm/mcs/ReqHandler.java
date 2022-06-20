@@ -7,7 +7,6 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.OutputStream;
-import org.json.*;
 
 import javax.inject.Inject;
 
@@ -16,12 +15,21 @@ public class ReqHandler implements HttpHandler {
     // TODO Complete This Class
     Neo4jDAO njDb;
 
+    /**
+     * This function injects the neo4j object in the req handler
+     * @param njDb the neo4j object to be injected
+     */
     @Inject
     public ReqHandler(Neo4jDAO njDb){
         this.njDb = njDb;
         njDb.initialSetup();
     }
 
+    /**
+     * This functions calls the appropriate routes based on the request
+     * @param exchange The request from the client to the server
+     * @throws IOException
+     */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if (!njDb.setupDone){
@@ -32,22 +40,22 @@ public class ReqHandler implements HttpHandler {
             System.out.println(exchange.getRequestURI());
             switch (exchange.getRequestURI().toString()){
                 case "/api/v1/addActor":
-                    new AddActor(njDb).handle(exchange);
+                    new Actor(njDb).handle(exchange);
                     break;
                 case "/api/v1/addMovie":
-                    new AddMovie(njDb).handle(exchange);
+                    new Movie(njDb).handle(exchange);
                     break;
                 case "/api/v1/hasRelationship":
-                    new HasRelationship(njDb).handle(exchange);
+                    new Relationship(njDb).handle(exchange);
                     break;
                 case "/api/v1/getActor":
-                    new GetActor(njDb).handle(exchange);
+                    new Actor(njDb).handle(exchange);
                     break;
                 case "/api/v1/getMovie":
-                    new GetMovie(njDb).handle(exchange);
+                    new Movie(njDb).handle(exchange);
                     break;
                 case "/api/v1/addRelationship":
-                    new AddRelationship(njDb).handle(exchange);
+                    new Relationship(njDb).handle(exchange);
                     break;
                 case "/api/v1/computeBaconPath":
                     new ComputeBaconPath(njDb).handle(exchange);
@@ -63,7 +71,12 @@ public class ReqHandler implements HttpHandler {
         }
     }
 
-    public void invalidRoute(HttpExchange exchange) throws IOException, JSONException {
+    /**
+     * This function deals with any invalid routes requested by the client
+     * @param exchange The request from the client to the server
+     * @throws IOException
+     */
+    public void invalidRoute(HttpExchange exchange) throws IOException{
         String response = "Not Found";
         exchange.sendResponseHeaders(404, response.length());
         OutputStream os = exchange.getResponseBody();

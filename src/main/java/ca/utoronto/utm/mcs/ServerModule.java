@@ -11,6 +11,11 @@ import java.net.InetSocketAddress;
 public class ServerModule {
     // TODO Complete This Module
 
+  /**
+   * This method provides(returns) the httpServer object that is to be
+   * injected in the server object
+   * @return the httpServer object that is to be injected
+   */
   @Provides
   HttpServer provideHttpServer() {
     try {
